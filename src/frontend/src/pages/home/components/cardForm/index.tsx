@@ -2,20 +2,37 @@ import React, { useState } from "react";
 import { Input } from "../../../../components/ui/Input";
 import { Label } from "../../../../components/ui/Label";
 import DropdownComponent from "../../../../components/DropdownComponent";
+import { Checkbox } from "../../../../components/ui/Checkbox";
+import { Button } from "../../../../components/ui/Button";
+import { CheckedState } from "@radix-ui/react-checkbox";
 
-const Form = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    damageType: "Magic",
-    armorType: "Physical",
-    damage: "",
-    life: "",
-    armor: "",
-    image: "",
-    rarity: "Raro",
-    superCard: false,
-  });
+type dataType = {
+    name: string;
+    description: string;
+    damageType: string;
+    armorType: string;
+    damage: string;
+    life: string;
+    armor: string;
+    image: string;
+    rarity: string;
+    superCard: boolean;
+}
+
+type formDataType = {
+    formData: dataType;
+    setFormData: (state: dataType | (() => dataType)) => void;
+};
+
+function Form({ formData, setFormData }: formDataType) {
+
+  function handleCheckbox(checked: CheckedState, name: string) {
+    if (checked === "indeterminate") return;
+    setFormData({
+      ...formData,
+      [name]: checked,
+    })
+  };
 
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -60,106 +77,88 @@ const Form = () => {
           options={
             [{value: "Magic", label: "Magic"}, {value: "Physical", label: "Physical"}]
           }
+          defaultText="Damage Type"
         />
       </div>
 
       {/* Armor Type */}
-      <div>
-        <Label>
-            Armor Type:
-            <select
-            name="armorType"
-            value={formData.armorType}
-            onChange={handleChange}
-            >
-            <option value="Physical">Physical</option>
-            <option value="Magic">Magic</option>
-            </select>
-        </Label>
-
+      <div className="flex flex-col gap-2 w-[40%]">
+        <Label>Armor Type:</Label>
+        <DropdownComponent
+            options={
+                [{value: "Magic", label: "Magic"}, {value: "Physical", label: "Physical"}]
+            }
+            defaultText="Armor Type"
+        />
       </div>
 
+      {/* Super Card */}
+      <div className="flex gap-2">
+        <Checkbox
+            name="superCard"
+            checked={formData.superCard}
+            onCheckedChange={(c) => handleCheckbox(c, "superCard")}
+        />
+        <Label>Super Card:</Label>
+      </div>
       {/* Damage */}
-      <div>
-        <Label>
-            Damage:
-            <Input
+      <div className="flex flex-col gap-2 w-[40%]">
+        <Label>Damage:</Label>
+        <Input
             type="number"
             name="damage"
             value={formData.damage}
             onChange={handleChange}
-            />
-        </Label>
+        />
       </div>
 
       {/* Life */}
-      <div>
-        <Label>
-            Life:
-            <Input
+      <div className="flex flex-col gap-2 w-[40%]">
+        <Label>Life:</Label>
+        <Input
             type="number"
             name="life"
             value={formData.life}
             onChange={handleChange}
-            />
-        </Label>
+        />
       </div>
 
       {/* Armor */}
-      <div>
-        <Label>
-            Armor:
-            <Input
+      <div className="flex flex-col gap-2 w-[40%]">
+        <Label>Armor:</Label>
+        <Input
             type="number"
             name="armor"
             value={formData.armor}
             onChange={handleChange}
-            />
-        </Label>
+        />
       </div>
 
       {/* Image */}
-      <div>
-        <Label>
-            Image URL:
-            <Input
+      <div className="flex flex-col gap-2 w-[40%]">
+        <Label>Image URL:</Label>
+        <Input
             type="text"
             name="image"
             value={formData.image}
             onChange={handleChange}
-            />
-        </Label>
+        />
       </div>
 
       {/* Rarity */}
-      <div>
-        <Label>
-            Rarity:
-            <select
-            name="rarity"
-            value={formData.rarity}
-            onChange={handleChange}
-            >
-            <option value="Raro">Raro</option>
-            <option value="Super Raro">Super Raro</option>
-            <option value="Normal">Normal</option>
-            </select>
-        </Label>
+      <div className="flex flex-col gap-2 w-[40%]">
+        <Label>Rarity:</Label>
+        <DropdownComponent
+            options={
+                [{value: "Ultra Rare", label: "Ultra Rare"}, {value: "Rare", label: "Rare"}, {value: "Common", label: "Common"}]
+            }
+            defaultText="Rarity"
+        />
       </div>
+      <div>
+        <Button className="" variant={"outline"}>Save Card</Button>
 
-      {/* Super Card */}
-      <div>
-        <Label>
-            Super Card:
-            <Input
-            type="checkbox"
-            name="superCard"
-            checked={formData.superCard}
-            onChange={handleChange}
-            />
-        </Label>
       </div>
-      <button type="submit">Submit</button>
     </div>
   );
 };
