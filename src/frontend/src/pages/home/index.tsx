@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Form from "./components/cardForm";
-import { CARD_FORM_INITIAL_STATE } from "../../../constants";
+import { CARD_FORM_INITIAL_STATE } from "../../constants";
 
 export default function Home() {
     const [formData, setFormData] = useState(CARD_FORM_INITIAL_STATE);
