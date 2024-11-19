@@ -12,13 +12,3 @@ services:
       - "4444:4444"
     depends_on:
       - "mysql"
-
-  frontend:
-    build:
-      context: ./src/frontend
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=development
-    depends_on:
-      - backend
