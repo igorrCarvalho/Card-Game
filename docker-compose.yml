@@ -1,8 +1,24 @@
 services:
-    frontend:
-      build:
-        context: ./src/frontend
-      ports:
-        - "3000:3000"
-      environment:
-        - NODE_ENV=development
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: card-game-db
+      MYSQL_ROOT_PASSWORD: "1234"
+  backend:
+    build:
+      context: 
+        ./src/backend
+    ports:
+      - "4444:4444"
+    depends_on:
+      - "mysql"
+
+  frontend:
+    build:
+      context: ./src/frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend
