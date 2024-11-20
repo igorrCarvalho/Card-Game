@@ -5,38 +5,18 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/Popover"
 import { Command, CommandGroup, CommandItem, CommandList } from "../ui/Command"
 import { Button } from "../ui/Button"
 import classNames from "classnames"
+import { dataType } from "../../pages/home/components/cardPreview"
 
 type DropdownComponentType = {
   options: Array<{ value: string; label: string; }>;
   defaultText?: string;
+  value: string;
+  setValue: any;
+  name: string;
 }
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-]
-
-export default function DropdownComponent({ options, defaultText }: DropdownComponentType) {
+export default function DropdownComponent({ options, defaultText, value, setValue, name }: DropdownComponentType) {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -63,8 +43,13 @@ export default function DropdownComponent({ options, defaultText }: DropdownComp
                   key={option.value}
                   value={option.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
-                    setOpen(false)
+                    if (currentValue === value) {
+                        setValue((obj) => ({...obj, [name]: ""}));
+                        setOpen(false);
+                        return;
+                    }
+                    setValue((obj) => ({ ...obj, [name]: currentValue }));
+                    return setOpen(false);
                   }}
                 >
                   <Check

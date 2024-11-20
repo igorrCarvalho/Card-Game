@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Form from "./components/cardForm";
 import { CARD_FORM_INITIAL_STATE } from "../../constants";
+import CardPreview from "./components/cardPreview";
 
 export default function Home() {
     const [formData, setFormData] = useState(CARD_FORM_INITIAL_STATE);
@@ -14,8 +15,13 @@ export default function Home() {
                             Add a new card
                         </span>
                     </div>
-                    <div className="w-full">
-                        <Form setFormData={setFormData} formData={formData} />
+                    <div className="w-full h-full flex">
+                        <div className="w-[50%]">
+                            <Form setFormData={setFormData} formData={formData} />
+                        </div>
+                        <div className="w-[50%] flex items-center justify-center">
+                            <CardPreview cardData={formData} />
+                        </div>
                     </div>
                 </div>
             </div>

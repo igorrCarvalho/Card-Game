@@ -1,3 +1,5 @@
+import { dataType } from "./pages/home/components/cardPreview";
+
 export const CARD_FORM_INITIAL_STATE = {
     name: "",
     description: "",
@@ -7,6 +9,6 @@ export const CARD_FORM_INITIAL_STATE = {
     life: "",
     armor: "",
     image: "",
-    rarity: "Rare",
+    rarity: "",
     superCard: false,
 };
