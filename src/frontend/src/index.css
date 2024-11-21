@@ -45,6 +45,21 @@ body {
 }
 
 @layer utilities {
+
+  .card-wrapper-ur {
+    @apply relative overflow-hidden;
+  }
+
+  .card-wrapper-ur::before {
+    background: conic-gradient(
+      rgb(255, 81, 197) 0deg,
+      rgba(241, 89, 255, 0.4) 0deg,
+      transparent 40deg
+    );
+
+    @apply absolute left-[-25%] top-[-25%] h-[150%] w-[150%] animate-border-spin content-[''];
+  }
+
   /* Act as a border */
   .card-wrapper {
     @apply relative overflow-hidden;
