@@ -1,3 +1,6 @@
+import CommonCard from "../../../../components/CardsComponents/commonCard";
+import RareCard from "../../../../components/CardsComponents/rareCard";
+import UltraRareCard from "../../../../components/CardsComponents/ultraRare";
 import UnknownCard from "./components/unknownCard";
 
 export type dataType = {
@@ -16,7 +19,17 @@ export type dataType = {
 }
 
 export default function CardPreview({ cardData }: dataType) {
+    const cards = {
+        common: CommonCard,
+        rare: RareCard,
+        ultrarare: UltraRareCard,
+        unknown: UnknownCard,
+    }
+
+    console.log(cardData.rarity.split(" ").join("").toLowerCase());
+
+    const CardToShow = cards[cardData.rarity.split(" ").join("").toLowerCase()] ?? cards["unknown"];
     return (
-        <UnknownCard cardData={cardData} />
+        <CardToShow cardData={cardData} />
     );
 }

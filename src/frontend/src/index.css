@@ -13,6 +13,62 @@ body {
   font-family: "SFPRODISPLAYREGULAR", sans-serif;
 }
 
+.animated-border {
+  position: relative;
+  display: inline-block;
+  width: 80%; /* Adjust as per your design */
+  height: 65%; /* Adjust as per your design */
+  border-radius: 16px;
+  border: 4px solid transparent; /* Transparent base border */
+  box-sizing: border-box; /* Prevent size change due to border */
+  background: linear-gradient(90deg, purple, blue, cyan, green); /* Gradient background */
+  background-clip: border-box; /* Make the gradient visible only on the border */
+  animation: border-animation 3s linear infinite; /* Add animation */
+}
+
+@keyframes border-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.animated-border-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: white; /* Inner content background color */
+  border-radius: 12px; /* Match inner radius to avoid overlap */
+  overflow: hidden;
+}
+
+@layer utilities {
+  /* Act as a border */
+  .card-wrapper {
+    @apply relative overflow-hidden;
+  }
+
+  /* Gradient */
+  .card-wrapper::before {
+    background: conic-gradient(
+      rgba(0, 204, 255, 0.4) 0deg,
+      rgba(0, 255, 228, 0.4) 0deg,
+      transparent 40deg
+    );
+
+    
+
+    @apply absolute left-[-25%] top-[-25%] h-[150%] w-[150%] animate-border-spin content-[''];
+  }
+
+  /* Body */
+  .card-content {
+    @apply absolute left-[2px] top-[2px] h-[calc(100%-4px)] w-[calc(100%-4px)];
+  }
+}
+
 
 @layer base {
   :root {
