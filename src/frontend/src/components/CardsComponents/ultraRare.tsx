@@ -7,8 +7,7 @@ export default function UltraRareCard({ cardData }: dataType) {
     const canShowOverall = armor && damage && life;
     const overall = Math.round((Number(armor) + Number(life) + Number(damage)) / 3)
     return (
-        <div>
-            <div className="card-content flex items-center justify-center w-[80%] h-[65%] rounded-md">
+        <div className=" flex items-center justify-center border border-gray-300 w-[80%] h-[65%] rounded-md">
             <div className="w-[90%] h-[93%] bg-zinc-200 rounded-md p-3 relative flex flex-col gap-1">
                 <div className="rounded-full h-10 w-10 bg-white border border- flex z-50 items-center justify-center absolute top-0.5 left-0.5">
                     {canShowOverall ? (overall) : "?"}
@@ -91,7 +90,6 @@ export default function UltraRareCard({ cardData }: dataType) {
                 </div>
 
             </div>
-        </div>
         </div>
     );
 }
