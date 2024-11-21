@@ -32,6 +32,16 @@ function Form({ formData, setFormData }: formDataType) {
         ultrarare: 350,
     };
 
+    const [isBackspace, setWasBackspaced] = useState(false);
+
+    const handleKeyDown = (event) => {
+      if (event.key.toLowerCase() === "backspace") {
+        setWasBackspaced(true); // Track that Backspace was pressed
+      } else {
+        setWasBackspaced(false);
+      }
+    };
+
   function handleCheckbox(checked: CheckedState, name: string) {
     if (checked === "indeterminate") return;
     setFormData({
@@ -40,16 +50,14 @@ function Form({ formData, setFormData }: formDataType) {
     })
   };
 
+  const currentStatsLimit = maxStatsObj[formData.rarity.split(" ").join("").toLowerCase()];
+  const statsSum = Number(formData.armor) + Number(formData.damage) + Number(formData.life)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type, checked } = event.target as HTMLInputElement; // Type assertion for `checked`
     const statInput = name === "life" || name === "armor" || name === "damage";
-    const nameToUse = formData.rarity.toLowerCase().trim();
-    console.log(statInput)
-    console.log(nameToUse)
-    if (statInput) {
-        const statsSum = Number(formData.armor) + Number(formData.damage) + Number(formData.life)
-        if (statsSum + Number(value) > Number(maxStatsObj[nameToUse])) {
+    if (statInput && !isBackspace) {
+        if (Number(value) > currentStatsLimit || statsSum > currentStatsLimit || statsSum === currentStatsLimit || (statsSum === currentStatsLimit && Number(value) === 0)) {
             return;
         }
     }
@@ -58,6 +66,8 @@ function Form({ formData, setFormData }: formDataType) {
       [name]: type === "checkbox" ? checked : value,
     });
   };
+
+  console.log(currentStatsLimit)
 
   return (
     <div className="flex flex-col gap-4">
@@ -147,10 +157,12 @@ function Form({ formData, setFormData }: formDataType) {
         <div className="flex flex-col gap-2 w-[80%]">
             <Label>Damage:</Label>
             <Input
+                disabled={formData.rarity === ""}
                 type="number"
                 name="damage"
                 value={formData.damage}
                 onChange={handleChange}
+                onKeyDown={handleKeyDown}
             />
         </div>
 
@@ -158,10 +170,12 @@ function Form({ formData, setFormData }: formDataType) {
         <div className="flex flex-col gap-2 w-[80%]">
             <Label>HP:</Label>
             <Input
+                disabled={formData.rarity === ""}
                 type="number"
                 name="life"
                 value={formData.life}
                 onChange={handleChange}
+                onKeyDown={handleKeyDown}
             />
         </div>
 
@@ -169,13 +183,17 @@ function Form({ formData, setFormData }: formDataType) {
         <div className="flex flex-col gap-2 w-[80%]">
             <Label>Armor:</Label>
             <Input
+                disabled={formData.rarity === ""}
                 type="number"
                 name="armor"
                 value={formData.armor}
                 onChange={handleChange}
+                onKeyDown={handleKeyDown}
             />
         </div>
-        <span className="text-xl bold text-fuchsia-400">Points to use: {Math.round(maxStatsObj[formData.rarity.toLowerCase().trim()] - (Number(formData.armor) + Number(formData.damage) + Number(formData.life)))}</span>
+        <span className="text-xl bold text-fuchsia-400">
+            {formData.rarity === "" ? "Select a rarity to set the stats" : `Points to use: ${Math.round(currentStatsLimit - statsSum)}`}
+        </span>
       </div>
 
       {/* Image */}
