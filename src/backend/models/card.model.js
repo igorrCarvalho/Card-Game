@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../config/database'; // Adjust the path to your Sequelize instance
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 
 const Card = sequelize.define(
   'Card',
@@ -56,4 +56,6 @@ const Card = sequelize.define(
   }
 );
 
-export default Card;
+module.exports = {
+  Card,
+}

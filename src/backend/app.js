@@ -1,6 +1,6 @@
-import express from 'express';
-import sequelize from './config/database';
-import router from './routes/card';
+const express = require('express');
+const sequelize = require('./config/database'); 
+const router = require('./routes/card');
 
 const app = express();
 

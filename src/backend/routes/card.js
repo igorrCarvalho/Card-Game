@@ -1,10 +1,10 @@
-import { Request, Response, Router } from 'express';
-import Card from '../models/card.model';
+const { Router } = require('express');
+const Card = require('../models/card.model');
 
 const router = Router();
 
 // POST route to add a card
-router.post('/api/v1/cards', async (req: Request, res: Response) => {
+router.post('/api/v1/cards', async (req, res) => {
   const {
     name,
     description,
@@ -45,4 +45,6 @@ router.post('/api/v1/cards', async (req: Request, res: Response) => {
   }
 });
 
-export default router;
+module.exports = {
+  router,
+}
