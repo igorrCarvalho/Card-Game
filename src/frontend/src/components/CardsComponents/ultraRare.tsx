@@ -43,27 +43,14 @@ export default function UltraRareCard({ cardData }: dataType) {
                     </div>
                     <div className="relative w-full h-48 bg-white rounded-md">
                         <img src={image} className="w-full h-full rounded-md" />
-
-                        {rarity.length > 0 ? (
-                            <div className="flex absolute bottom-1 inset-x-28">
-                                {superCard ? (
-                                    <>
-                                        <Star fill="yellow" className="w-4 h-4 stroke-white "/>
-                                        <Star fill="yellow" className="w-4 h-4 stroke-white"/>
-                                        <Star fill="yellow" className="w-4 h-4 stroke-white"/>
-                                        <Star fill="yellow" className="w-4 h-4 stroke-white"/>
-                                        <Star fill="yellow" className="w-4 h-4 stroke-white"/>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Star fill="yellow" className="w-4 h-4 stroke-white"/>
-                                        <Star fill="yellow" className="w-4 h-4 stroke-white"/>
-                                        <Star fill="yellow" className="w-4 h-4 stroke-white"/>
-                                        <Star fill="yellow" className="w-4 h-4 stroke-white"/>
-                                    </>
-                                )}
+                            <div className="flex absolute bottom-1 w-full">
+                                <div className="flex w-full items-center justify-center">
+                                    <Star fill="yellow" className="w-4 h-4 stroke-white"/>
+                                    <Star fill="yellow" className="w-4 h-4 stroke-white"/>
+                                    <Star fill="yellow" className="w-4 h-4 stroke-white"/>
+                                    <Star fill="yellow" className="w-4 h-4 stroke-white"/>
+                                </div>
                             </div>
-                        ) : null}
                     </div>
                     <div className="w-full h-8 rounded-md bg-fuchsia-100 flex items-center pl-2 ">
                         {name}

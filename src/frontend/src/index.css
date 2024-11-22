@@ -45,6 +45,23 @@ body {
 }
 
 @layer utilities {
+  .card-wrapper-sc {
+    @apply relative overflow-hidden;
+  }
+
+  .card-wrapper-sc::before {
+    background: conic-gradient(
+      rgb(255, 217, 0) 0deg,
+      rgba(255, 187, 0) 0deg,
+      transparent 40deg
+    );
+
+    @apply absolute left-[-25%] top-[-25%] h-[150%] w-[150%] animate-border-spin content-[''];
+  }
+ 
+  .card-content-sc {
+    @apply absolute left-[3px] top-[3px] h-[calc(100%-6px)] w-[calc(100%-6px)];
+  }
 
   .card-wrapper-ur {
     @apply relative overflow-hidden;
