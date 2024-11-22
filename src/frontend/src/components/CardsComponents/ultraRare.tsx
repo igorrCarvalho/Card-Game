@@ -28,10 +28,10 @@ export default function UltraRareCard({ cardData }: dataType) {
         },
     };
 
-    const DamageToRender = damageJSX[damageType.toLowerCase()].jsx ?? damageJSX["physical"].jsx;
-    const ArmorToRender = armorJSX[armorType.toLowerCase()].jsx ?? armorJSX["physical"].jsx;
-    const DamageStyleToRender = damageJSX[damageType.toLowerCase()].css ?? damageJSX["physical"].css;
-    const ArmorStyleToRender = armorJSX[armorType.toLowerCase()].css ?? armorJSX["physical"].css;
+    const DamageToRender = damageJSX[damageType.toLowerCase()]?.jsx ?? damageJSX["physical"].jsx;
+    const ArmorToRender = armorJSX[armorType.toLowerCase()]?.jsx ?? armorJSX["physical"].jsx;
+    const DamageStyleToRender = damageJSX[damageType.toLowerCase()]?.css ?? damageJSX["physical"].css;
+    const ArmorStyleToRender = armorJSX[armorType.toLowerCase()]?.css ?? armorJSX["physical"].css;
 
     return (
         <div className="flex items-center justify-center card-wrapper-ur w-[80%] h-[65%] rounded-md">
