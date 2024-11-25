@@ -19,3 +19,8 @@ export async function saveCardToDB({ name, description, rarity, damageType, armo
   const response = await axios.post(`${defaultUrl}cards/`, { name, description, rarity, damageType, armorType, superCard, damage, hp, armor, image });
   return response.data;
 }
+
+export async function getCardsFromDB(): Promise<dataType[]> {
+    const response = await axios.get(`${defaultUrl}cards/`);
+    return response.data;
+};
