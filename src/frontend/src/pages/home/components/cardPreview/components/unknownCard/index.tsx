@@ -3,9 +3,9 @@ import { dataType } from "../..";
 import { truncateString } from "../../../../../../utils";
 
 export default function UnknownCard({ cardData }: dataType) {
-    const { rarity, name, description, life, damageType, armorType, armor, damage, superCard, image } = cardData;
-    const canShowOverall = armor && damage && life;
-    const overall = Math.round((Number(armor) + Number(life) + Number(damage)) / 3)
+    const { rarity, name, description, hp, damageType, armorType, armor, damage, superCard, image } = cardData;
+    const canShowOverall = armor && damage && hp;
+    const overall = Math.round((Number(armor) + Number(hp) + Number(damage)) / 3)
     return (
         <div className=" flex items-center justify-center border border-gray-300 w-[80%] h-[65%] rounded-md">
             <div className="w-[90%] h-[93%] bg-zinc-200 rounded-md p-3 relative flex flex-col gap-1">
@@ -62,7 +62,7 @@ export default function UnknownCard({ cardData }: dataType) {
                       <Heart className="w-4 h-4 stroke-emerald-400" />
                       -
                       <span>
-                        {life}
+                        {hp}
                       </span>
                     </div>
                     <div className="w-full flex items-center gap-1">

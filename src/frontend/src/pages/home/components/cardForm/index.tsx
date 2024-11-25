@@ -6,6 +6,8 @@ import { Checkbox } from "../../../../components/ui/Checkbox";
 import { Button } from "../../../../components/ui/Button";
 import { CheckedState } from "@radix-ui/react-checkbox";
 import { validateHeaderValue } from "http";
+import { saveCardToDB } from "../../../../api";
+import { CARD_FORM_INITIAL_STATE } from "../../../../constants";
 
 type dataType = {
     name: string;
@@ -13,7 +15,7 @@ type dataType = {
     damageType: string;
     armorType: string;
     damage: string;
-    life: string;
+    hp: string;
     armor: string;
     image: string;
     rarity: string;
@@ -50,12 +52,22 @@ function Form({ formData, setFormData }: formDataType) {
     })
   };
 
+  async function handleSaveCard() {
+    const { name, description, rarity, damageType, armorType, superCard, damage: attack, hp: life, armor: defense, image } = formData;
+    const damage = Number(attack);
+    const hp = Number(life);
+    const armor = Number(defense);
+    const data = { name, description, rarity, damageType, armorType, superCard, damage, hp, armor, image };
+    await saveCardToDB(data);
+    setFormData(CARD_FORM_INITIAL_STATE)
+  }
+
   const currentStatsLimit = maxStatsObj[formData.rarity.split(" ").join("").toLowerCase()];
-  const statsSum = Number(formData.armor) + Number(formData.damage) + Number(formData.life)
+  const statsSum = Number(formData.armor) + Number(formData.damage) + Number(formData.hp)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type, checked } = event.target as HTMLInputElement; // Type assertion for `checked`
-    const statInput = name === "life" || name === "armor" || name === "damage";
+    const statInput = name === "hp" || name === "armor" || name === "damage";
     if (statInput && !isBackspace) {
         if (Number(value) > currentStatsLimit || statsSum > currentStatsLimit || statsSum === currentStatsLimit || (statsSum === currentStatsLimit && Number(value) === 0)) {
             return;
@@ -170,8 +182,8 @@ function Form({ formData, setFormData }: formDataType) {
             <Input
                 disabled={formData.rarity === ""}
                 type="number"
-                name="life"
-                value={formData.life}
+                name="hp"
+                value={formData.hp}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
             />
@@ -206,7 +218,7 @@ function Form({ formData, setFormData }: formDataType) {
       </div>
 
       <div>
-        <Button className="" variant={"outline"}>Save Card</Button>
+        <Button className="" onClick={handleSaveCard} variant={"outline"}>Save Card</Button>
 
       </div>
     </div>

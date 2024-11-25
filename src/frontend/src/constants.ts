@@ -6,7 +6,7 @@ export const CARD_FORM_INITIAL_STATE = {
     damageType: "Magic",
     armorType: "Physical",
     damage: "",
-    life: "",
+    hp: "",
     armor: "",
     image: "",
     rarity: "",

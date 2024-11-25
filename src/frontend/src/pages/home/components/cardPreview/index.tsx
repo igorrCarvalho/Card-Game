@@ -11,7 +11,7 @@ export type dataType = {
         damageType: string;
         armorType: string;
         damage: string;
-        life: string;
+        hp: string;
         armor: string;
         image: string;
         rarity: string;

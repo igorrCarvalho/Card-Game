@@ -4,9 +4,9 @@ import { dataType } from "../../pages/home/components/cardPreview";
 import { JSXTypesObjRenderer } from "./commonCard";
 
 export default function RareCard({ cardData }: dataType) {
-    const { rarity, name, description, life, damageType, armorType, armor, damage, superCard, image } = cardData;
-    const canShowOverall = armor && damage && life;
-    const overall = Math.round((Number(armor) + Number(life) + Number(damage)) / 3);
+    const { rarity, name, description, hp, damageType, armorType, armor, damage, superCard, image } = cardData;
+    const canShowOverall = armor && damage && hp;
+    const overall = Math.round((Number(armor) + Number(hp) + Number(damage)) / 3);
     const damageJSX: JSXTypesObjRenderer = {
         magic: {
             jsx: WandSparkles,
@@ -67,7 +67,7 @@ export default function RareCard({ cardData }: dataType) {
                         <Heart className="w-4 h-4 stroke-emerald-400" />
                         -
                         <span>
-                            {life}
+                            {hp}
                         </span>
                         </div>
                         <div className="w-full flex items-center gap-1">
