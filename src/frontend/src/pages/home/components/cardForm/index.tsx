@@ -8,6 +8,7 @@ import { CheckedState } from "@radix-ui/react-checkbox";
 import { validateHeaderValue } from "http";
 import { saveCardToDB } from "../../../../api";
 import { CARD_FORM_INITIAL_STATE } from "../../../../constants";
+import useCardStore from "../../../../stores/cardStore";
 
 type dataType = {
     name: string;
@@ -28,21 +29,22 @@ type formDataType = {
 };
 
 function Form({ formData, setFormData }: formDataType) {
-    const maxStatsObj = {
-        common: 150,
-        rare: 250,
-        ultrarare: 350,
-    };
+  const saveCard = useCardStore((state) => state.saveCard);
+  const maxStatsObj = {
+      common: 150,
+      rare: 250,
+      ultrarare: 350,
+  };
 
-    const [isBackspace, setWasBackspaced] = useState(false);
+  const [isBackspace, setWasBackspaced] = useState(false);
 
-    const handleKeyDown = (event) => {
-      if (event.key.toLowerCase() === "backspace") {
-        setWasBackspaced(true); // Track that Backspace was pressed
-      } else {
-        setWasBackspaced(false);
-      }
-    };
+  const handleKeyDown = (event) => {
+    if (event.key.toLowerCase() === "backspace") {
+      setWasBackspaced(true); // Track that Backspace was pressed
+    } else {
+      setWasBackspaced(false);
+    }
+  };
 
   function handleCheckbox(checked: CheckedState, name: string) {
     if (checked === "indeterminate") return;
@@ -58,7 +60,7 @@ function Form({ formData, setFormData }: formDataType) {
     const hp = Number(life);
     const armor = Number(defense);
     const data = { name, description, rarity, damageType, armorType, superCard, damage, hp, armor, image };
-    await saveCardToDB(data);
+    await saveCard(data);
     setFormData(CARD_FORM_INITIAL_STATE)
   }
 

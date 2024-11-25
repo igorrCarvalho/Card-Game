@@ -13,7 +13,25 @@ export type JSXTypesObjRenderer = {
     physical: JSXTypesRendererDataType;
 }
 
-export default function CommonCard({ cardData }: dataType) {
+type card = {
+    name: string;
+    description: string;
+    damageType: string;
+    armorType: string;
+    damage: string;
+    hp: string;
+    armor: string;
+    image: string;
+    rarity: string;
+    superCard: boolean;
+};
+
+export type cardDataType = {
+    cardData: card;
+    reactKey?: number;
+};
+
+export default function CommonCard({ cardData, reactKey }: cardDataType) {
     const { rarity, name, description, hp, damageType, armorType, armor, damage, superCard, image } = cardData;
     const canShowOverall = armor && damage && hp;
     const overall = Math.round((Number(armor) + Number(hp) + Number(damage)) / 3);
