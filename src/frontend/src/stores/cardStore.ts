@@ -24,6 +24,7 @@ const useCardStore = create<CardStore>((get, set) => ({
     cards: [],
     saveCard: async (data: dataType) => {
         await saveCardToDB(data);
+        await useCardStore.getState().getCards();
     },
     getCards: async () => {
         const cards = await getCardsFromDB();

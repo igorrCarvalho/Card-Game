@@ -29,9 +29,10 @@ type card = {
 export type cardDataType = {
     cardData: card;
     reactKey?: number;
+    showroom?: boolean;
 };
 
-export default function CommonCard({ cardData, reactKey }: cardDataType) {
+export default function CommonCard({ cardData, reactKey, showroom = false }: cardDataType) {
     const { rarity, name, description, hp, damageType, armorType, armor, damage, superCard, image } = cardData;
     const canShowOverall = armor && damage && hp;
     const overall = Math.round((Number(armor) + Number(hp) + Number(damage)) / 3);
@@ -62,7 +63,7 @@ export default function CommonCard({ cardData, reactKey }: cardDataType) {
     const ArmorStyleToRender = armorJSX[armorType.toLowerCase()]?.css ?? armorJSX["physical"].css;
 
     return (
-        <div className=" flex items-center justify-center border border-gray-300 w-[80%] h-[65%] rounded-md">
+        <div className={`flex items-center justify-center border border-gray-300 ${showroom ? "w-60 h-[30em]" : "w-[80%] h-[65%]"} rounded-md`}>
             <div className="w-[90%] h-[93%] bg-gradient-to-br from-green-600 to-green-700 rounded-md p-3 relative flex flex-col gap-1">
                 <div className="rounded-full h-10 w-10 bg-white border border- flex z-50 items-center justify-center absolute top-0.5 left-0.5">
                     {canShowOverall ? (overall) : "?"}

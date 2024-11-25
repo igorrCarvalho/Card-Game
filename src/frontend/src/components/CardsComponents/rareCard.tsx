@@ -1,9 +1,9 @@
 import { Axe, Heart, ShieldHalf, ShieldPlus, Star, WandSparkles } from "lucide-react";
 import { truncateString } from "../../utils";
 import { dataType } from "../../pages/home/components/cardPreview";
-import { JSXTypesObjRenderer } from "./commonCard";
+import { cardDataType, JSXTypesObjRenderer } from "./commonCard";
 
-export default function RareCard({ cardData }: dataType) {
+export default function RareCard({ cardData, reactKey, showroom }: cardDataType) {
     const { rarity, name, description, hp, damageType, armorType, armor, damage, superCard, image } = cardData;
     const canShowOverall = armor && damage && hp;
     const overall = Math.round((Number(armor) + Number(hp) + Number(damage)) / 3);
@@ -34,7 +34,7 @@ export default function RareCard({ cardData }: dataType) {
     const ArmorStyleToRender = armorJSX[armorType.toLowerCase()]?.css ?? armorJSX["physical"].css;
 
     return (
-        <div className=" flex items-center justify-center card-wrapper w-[80%] h-[65%] rounded-md">
+        <div className={`flex items-center justify-center card-wrapper ${showroom ? "w-60 h-[30em]" : "w-[80%] h-[65%]"} rounded-md`}>
 
             <div className="card-content flex items-center justify-center w-full h-full border border-gray-300 rounded-md bg-white/[0.9]">
                 <div className="w-[90%] h-[93%] bg-gradient-to-br from-indigo-500 to-indigo-800 rounded-md p-3 relative flex flex-col gap-1">
