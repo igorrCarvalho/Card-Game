@@ -1,14 +1,23 @@
 services:
-  mysql:
-    image: mysql:8.0
-    environment:
-      MYSQL_DATABASE: card-game-db
-      MYSQL_ROOT_PASSWORD: "1234"
-  backend:
+  nestjs_api:
     build:
-      context: 
-        ./src/backend
+      context: ./src/backend
     ports:
-      - "4444:4444"
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - NODE_ENV=development
+    volumes:
+      - ./src/backend:/usr/src/app/src
     depends_on:
-      - "mysql"
+      - mysql_db
+  mysql_db:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_password_123
+      - MYSQL_DATABASE=nestjs_docker_tutorial
+      - MYSQL_USER=testuser
+      - MYSQL_PASSWORD=testuser123
+      - MYSQL_TCP_PORT=3306
