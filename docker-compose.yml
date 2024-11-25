@@ -1,4 +1,16 @@
 services:
+  frontend:
+    build:
+      context: ./src/frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=development
+    volumes:
+      - ./src/frontend/src:/usr/src/app/src
+    depends_on:
+      - nestjs_api
   nestjs_api:
     build:
       context: ./src/backend
