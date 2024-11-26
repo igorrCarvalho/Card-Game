@@ -60,6 +60,7 @@ function Form({ formData, setFormData }: formDataType) {
     const hp = Number(life);
     const armor = Number(defense);
     const data = { name, description, rarity, damageType, armorType, superCard, damage, hp, armor, image };
+    //@ts-ignore
     await saveCard(data);
     setFormData(CARD_FORM_INITIAL_STATE)
   }

@@ -4,7 +4,6 @@ import CommonCard from "../CardsComponents/commonCard";
 import RareCard from "../CardsComponents/rareCard";
 import UltraRareCard from "../CardsComponents/ultraRare";
 import SuperCard from "../CardsComponents/superCard";
-import { get } from "http";
 
 export default function CardShowroom() {
     const cards = useCardStore((state) => state.cards);
@@ -43,7 +42,7 @@ export default function CardShowroom() {
                     Card Showroom
                 </span>
             </div>
-            <div className="w-full h-fit flex flex-wrap items-center justify-center gap-3">
+            <div className="w-full h-fit flex flex-wrap items-center justify-center gap-5">
                 {cards.length > 0 ? cards.map((card, index) => (
                     <CardToRender reactkey={index} cardData={card} />
                 )): null}

@@ -2,9 +2,15 @@ import { Axe, Heart, ShieldHalf, ShieldPlus, Star, WandSparkles } from "lucide-r
 import { truncateString } from "../../utils";
 import { dataType } from "../../pages/home/components/cardPreview";
 import { cardDataType, JSXTypesObjRenderer } from "./commonCard";
+import useCardStore from "../../stores/cardStore";
+import { useEffect, useState } from "react";
 
 export default function UltraRareCard({ cardData, reactKey, showroom }: cardDataType) {
     const { rarity, name, description, hp, damageType, armorType, armor, damage, superCard, image } = cardData;
+    const [isSelected, setIsSelected] = useState<boolean>(false);
+    const selectCard = useCardStore((state) => state.selectCard);
+    const selectedCards = useCardStore((state) => state.selectedCards);
+    const unselectCard = useCardStore((state) => state.unselectCard);
     const canShowOverall = armor && damage && hp;
     const overall = Math.round((Number(armor) + Number(hp) + Number(damage)) / 3);
     const damageJSX: JSXTypesObjRenderer = {
@@ -33,8 +39,22 @@ export default function UltraRareCard({ cardData, reactKey, showroom }: cardData
     const DamageStyleToRender = damageJSX[damageType.toLowerCase()]?.css ?? damageJSX["physical"].css;
     const ArmorStyleToRender = armorJSX[armorType.toLowerCase()]?.css ?? armorJSX["physical"].css;
 
+    useEffect(() => {
+        setIsSelected(selectedCards.find((card) => card.id === cardData.id)?.id ? true : false);
+    }, [selectedCards, selectCard, unselectCard]);
+
     return (
-        <div  className={`flex items-center justify-center card-wrapper-ur ${showroom ? "w-60 h-[30em]" : "w-[80%] h-[65%]"} rounded-md`}>
+        <div
+        onClick={() => {
+            //@ts-ignore
+            if (selectedCards.find((card) => card.id === cardData.id)) {
+                return unselectCard(cardData.id);
+            }
+            //@ts-ignore
+            selectCard(cardData);
+        }} 
+            className={`flex items-center justify-center card-wrapper-ur ${showroom ? `w-60 h-[30em] ${isSelected ? "shadow-2xl" : ""}` : "w-[80%] h-[65%]"} rounded-md cursor-pointer transition-all`}
+        >
 
             <div className=" card-content flex items-center justify-center w-full h-full border border-gray-300 rounded-md bg-purple-50/[0.9]">
                 <div className="w-[90%] h-[93%] bg-gradient-to-br from-fuchsia-500 to-fuchsia-800 rounded-md p-3 relative flex flex-col gap-1">

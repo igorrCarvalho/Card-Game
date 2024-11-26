@@ -1,7 +1,8 @@
 import { Axe, Heart, LucideProps, ShieldHalf, ShieldPlus, Star, WandSparkles } from "lucide-react";
 import { truncateString } from "../../utils";
 import { dataType } from "../../pages/home/components/cardPreview";
-import { ForwardRefExoticComponent, RefAttributes } from "react";
+import { ForwardRefExoticComponent, RefAttributes, useEffect, useState } from "react";
+import useCardStore from "../../stores/cardStore";
 
 export type JSXTypesRendererDataType = {
     jsx: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
@@ -14,6 +15,7 @@ export type JSXTypesObjRenderer = {
 }
 
 type card = {
+    id?: number;
     name: string;
     description: string;
     damageType: string;
@@ -34,6 +36,10 @@ export type cardDataType = {
 
 export default function CommonCard({ cardData, reactKey, showroom = false }: cardDataType) {
     const { rarity, name, description, hp, damageType, armorType, armor, damage, superCard, image } = cardData;
+    const [isSelected, setIsSelected] = useState<boolean>(false);
+    const selectCard = useCardStore((state) => state.selectCard);
+    const selectedCards = useCardStore((state) => state.selectedCards);
+    const unselectCard = useCardStore((state) => state.unselectCard);
     const canShowOverall = armor && damage && hp;
     const overall = Math.round((Number(armor) + Number(hp) + Number(damage)) / 3);
     const damageJSX: JSXTypesObjRenderer = {
@@ -62,8 +68,22 @@ export default function CommonCard({ cardData, reactKey, showroom = false }: car
     const DamageStyleToRender = damageJSX[damageType.toLowerCase()]?.css ?? damageJSX["physical"].css;
     const ArmorStyleToRender = armorJSX[armorType.toLowerCase()]?.css ?? armorJSX["physical"].css;
 
+    useEffect(() => {
+        setIsSelected(selectedCards.find((card) => card.id === cardData.id)?.id ? true : false);
+    }, [selectedCards, selectCard, unselectCard, ]);
+
     return (
-        <div className={`flex items-center justify-center border border-gray-300 ${showroom ? "w-60 h-[30em]" : "w-[80%] h-[65%]"} rounded-md`}>
+        <div
+            onClick={() => {
+                //@ts-ignore
+                if (selectedCards.find((card) => card.id === cardData.id)) {
+                    return unselectCard(cardData.id);
+                }
+                //@ts-ignore
+                selectCard(cardData);
+            }}
+            className={`flex items-center justify-center border border-gray-300 ${showroom ? `w-60 h-[30em] ${isSelected ? "shadow-2xl" : ""}` : "w-[80%] h-[65%]"} rounded-md transition-all cursor-pointer `}
+        >
             <div className="w-[90%] h-[93%] bg-gradient-to-br from-green-600 to-green-700 rounded-md p-3 relative flex flex-col gap-1">
                 <div className="rounded-full h-10 w-10 bg-white border border- flex z-50 items-center justify-center absolute top-0.5 left-0.5">
                     {canShowOverall ? (overall) : "?"}
