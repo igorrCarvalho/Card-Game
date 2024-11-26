@@ -1,0 +1,13 @@
+{
+    "id": 447,
+    "name": "Satoru Gojo",
+    "description": "Strongest Jujutsu Sorcerer",
+    "rarity": "Ultra Rare",
+    "damageType": "Magic",
+    "hp": 150,
+    "armorType": "Magic",
+    "armor": 0,
+    "damage": 200,
+    "superCard": true,
+    "image": "https://media1.tenor.com/m/N9tfR3_w9uYAAAAC/gojo-satoru-hollow-purple.gif"
+}

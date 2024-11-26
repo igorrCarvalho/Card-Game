@@ -3,9 +3,11 @@ import Form from "./components/cardForm";
 import { CARD_FORM_INITIAL_STATE } from "../../constants";
 import CardPreview from "./components/cardPreview";
 import CardShowroom from "../../components/CardShowroom";
+import useCardStore from "../../stores/cardStore";
 
 export default function Home() {
     const [formData, setFormData] = useState(CARD_FORM_INITIAL_STATE);
+    const cards = useCardStore((state) => state.cards);
 
     return (
         <div className="w-full h-full flex flex-col items-center justify-center">
@@ -27,7 +29,10 @@ export default function Home() {
                 </div>
             </div>
             <div className="w-full flex items-center justify-center">
-                <CardShowroom />
+                {cards.length > 0 ? (
+                    <CardShowroom />
+
+                ) : null}
             </div>
         </div>
     );

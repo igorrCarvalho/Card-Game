@@ -1,0 +1,13 @@
+{
+    "id": 446,
+    "name": "Shrek",
+    "description": "Ogre with a heart of gold",
+    "rarity": "Common",
+    "damageType": "Physical",
+    "hp": 100,
+    "armorType": "Magic",
+    "armor": 25,
+    "damage": 25,
+    "superCard": false,
+    "image": "https://i.pinimg.com/originals/26/5f/7a/265f7a3a2e2b376bf414fe4de6373d29.gif"
+}

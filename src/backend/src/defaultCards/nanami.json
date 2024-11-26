@@ -1,0 +1,13 @@
+{
+    "id": 500,
+    "name": "Nanami",
+    "description": "Salaryman Sorcerer",
+    "rarity": "Ultra Rare",
+    "damageType": "Physical",
+    "hp": 200,
+    "armorType": "Magic",
+    "armor": 50,
+    "damage": 100,
+    "superCard": false,
+    "image": "https://i.pinimg.com/originals/a6/e3/24/a6e32443e124b5cbb48600fbe324983d.gif"
+}

@@ -1,0 +1,13 @@
+{
+    "id": 444,
+    "name": "Khada Jhin",
+    "description": "Meticulous criminal psychopath",
+    "rarity": "Ultra Rare",
+    "damageType": "Physical",
+    "hp": 100,
+    "armorType": "Physical",
+    "armor": 50,
+    "damage": 200,
+    "superCard": true,
+    "image": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jhin_0.jpg"
+}

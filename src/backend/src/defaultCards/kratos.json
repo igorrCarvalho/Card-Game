@@ -1,0 +1,13 @@
+{
+    "id": 445,
+    "name": "Kratos",
+    "description": "God of War",
+    "rarity": "Ultra Rare",
+    "damageType": "Physical",
+    "hp": 200,
+    "armorType": "Magic",
+    "armor": 50,
+    "damage": 100,
+    "superCard": false,
+    "image": "https://preview.redd.it/could-young-kratos-have-potentially-easily-beaten-thor-v0-ztiio7o52n4d1.jpg?width=1080&crop=smart&auto=webp&s=a937c6b44ee3e697b2ab4ee54a50d5a6a87d7b45"
+}
