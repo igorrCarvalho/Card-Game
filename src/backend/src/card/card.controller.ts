@@ -6,6 +6,11 @@ import { Card } from '../entities/card.entity';
 export class CardController {
   constructor(private readonly cardService: CardService) {}
 
+  @Get('default')
+  async getDefaultCards(): Promise<any[]> {
+    return await this.cardService.getDefaultCards();
+  }
+
   @Get()
   async findAll(): Promise<Card[]> {
     return await this.cardService.findAll();
