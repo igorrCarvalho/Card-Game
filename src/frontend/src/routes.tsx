@@ -7,7 +7,7 @@ export default function RoutesProvider() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/game" element={<Game />} />
+      <Route path="/game/:id" element={<Game />} />
     </Routes>
   
   );

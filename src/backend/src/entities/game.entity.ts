@@ -26,18 +26,18 @@ export class Game {
   @Column()
   isActive: boolean;
 
-  @Column()
+  @Column({ type: 'text' })
   cardsFighting: string;
 
-  @Column()
+  @Column({ type: 'text' })
   playerAliveCards: string;
 
-  @Column()
+  @Column({ type: 'text' })
   IAAliveCards: string;
 
-  @Column()
+  @Column({ type: 'text' })
   playerDeadCards: string;
 
-  @Column()
+  @Column({ type: 'text' })
   IADeadCards: string;
 }

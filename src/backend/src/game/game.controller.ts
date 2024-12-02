@@ -19,7 +19,8 @@ export class GameController {
   
     @Post()
     async create(@Body() game: Partial<Game>): Promise<Game> {
-      return await this.gameService.create(game);
+      const r =  await this.gameService.create(game);
+      return r;
     }
   
     @Put(':id')

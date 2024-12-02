@@ -35,6 +35,10 @@ export default function CardShowroom() {
         getCards();
     }, [saveCard, getCards]);
 
+    useEffect(() => { 
+        getCards();
+    }, []);
+
     return (
         <div className="w-[50%] p-5 bg-white">
             <div className="w-full flex items-center justify-center">

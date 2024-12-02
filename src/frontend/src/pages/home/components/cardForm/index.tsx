@@ -9,6 +9,7 @@ import { validateHeaderValue } from "http";
 import { saveCardToDB } from "../../../../api";
 import { CARD_FORM_INITIAL_STATE } from "../../../../constants";
 import useCardStore from "../../../../stores/cardStore";
+import { redirect } from "react-router-dom";
 
 type dataType = {
     name: string;
@@ -82,8 +83,25 @@ function Form({ formData, setFormData }: formDataType) {
     });
   };
 
+  const selectedCards = useCardStore((state) => state.selectedCards);
+
+  function handlePlayBtn() {
+    if (selectedCards.length < 4) {
+      return;
+    }
+    redirect("/game");
+
+  }
+
   return (
     <div className="flex flex-col gap-4">
+        <Button
+          onClick={handlePlayBtn}
+          variant="default"
+          className="fixed bottom-2 right-[50vw] z-50"
+        >
+          Play
+        </Button>
       {/* Name */}
       <div className="flex flex-col gap-2">
             <span className="text-xl bold text-fuchsia-400">Identity</span>
