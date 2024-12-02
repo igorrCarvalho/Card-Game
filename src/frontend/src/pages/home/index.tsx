@@ -23,7 +23,7 @@ export default function Home() {
         const IAAliveCards = JSON.stringify(IACards);
         const playerDeadCards = JSON.stringify([]);
         const IADeadCards = JSON.stringify([]);
-        const isActive = true;
+        const isActive = false;
         const cardsFighting = "";
         const game = { isActive, cardsFighting, playerAliveCards, IAAliveCards, playerDeadCards, IADeadCards };
         const { id } = await startAGame(game);

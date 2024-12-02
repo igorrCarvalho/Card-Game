@@ -1,24 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getGameById } from "../../api";
-import { cardDataType } from "../../components/CardsComponents/commonCard";
+import CommonCard, { cardDataType } from "../../components/CardsComponents/commonCard";
 import { parse } from "path";
-
-type gameDataType = {
-  id: number;
-  isActive: boolean;
-  cardsFighting: string;
-  playerAliveCards: string;
-  IAAliveCards: string
-  playerDeadCards: string;
-  IADeadCards: string;
-}
+import RareCard from "../../components/CardsComponents/rareCard";
+import UltraRareCard from "../../components/CardsComponents/ultraRare";
+import SuperCard from "../../components/CardsComponents/superCard";
+import InactiveGame from "./components/inactiveGame";
 
 export default function Game() {
   const id = useParams().id;
-  const [gameData, setGameData] = useState<gameDataType | null>(null);
+  const [gameData, setGameData] = useState(null);
 
-  function parseCards(gameDataa: gameDataType) {
+  function parseCards(gameDataa) {
     const { playerAliveCards, IAAliveCards, playerDeadCards, IADeadCards, isActive, id } = gameDataa;
     console.log(playerAliveCards);
     const parsedGameData = {
@@ -32,22 +26,45 @@ export default function Game() {
     //@ts-ignore
     setGameData(parsedGameData);
   }
+
+  function CardToRender({ reactkey, cardData }): JSX.Element {
+    const cards = {
+        common: CommonCard,
+        rare: RareCard,
+        ultrarare: UltraRareCard,
+        super: SuperCard,
+    }
+    let CardToShow = null;
+
+
+    if (cardData.superCard) {
+        CardToShow = cards["super"];
+    } else {
+        CardToShow = cards[cardData.rarity.split(" ").join("").toLowerCase()];
+    }
+    return (
+        <CardToShow cardData={cardData} reactKey={reactkey} showroom={true}  />
+    );
+
+}
   
   useEffect(() => {
     getGameById(Number(id)).then((game) =>  parseCards(game));
   }, [id]);
 
-  useEffect(() => {
-    if (gameData) {
-      parseCards(gameData);
-    }
-  }, [setGameData])
-  console.log(gameData)
+  console.log(gameData);
 
 
   return (
-    <div className="w-full h-full">
+    gameData?.isActive ? (
+      <div className="w-full h-full">
 
-    </div>
+      </div>
+    ) : (
+      <InactiveGame
+        gameData={gameData}
+        CardToRender={CardToRender}
+      />
+    )
   );
 }
